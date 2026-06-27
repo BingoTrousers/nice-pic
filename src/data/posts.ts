@@ -88,6 +88,16 @@ export function filterByTags(selected: string[], mode: "all" | "any" = "all"): P
   return posts.filter((p) => selected.every((t) => p.tags.includes(t)));
 }
 
+export function searchPosts(list: Post[], q: string): Post[] {
+  const query = q.trim().toLowerCase();
+  if (!query) return list;
+  return list.filter(
+    (p) =>
+      p.title.toLowerCase().includes(query) ||
+      p.tags.some((t) => t.toLowerCase().includes(query))
+  );
+}
+
 export function getPost(id: string): Post | undefined {
   return posts.find((p) => p.id === id);
 }
