@@ -16,7 +16,7 @@ export function PostGrid({ posts }: { posts: Post[] }) {
           key={post.id}
           to="/post/$id"
           params={{ id: post.id }}
-          className="group block overflow-hidden rounded-md border bg-muted"
+          className="group relative block overflow-hidden rounded-md border bg-muted"
         >
           <div className="aspect-square overflow-hidden">
             <img
@@ -25,6 +25,9 @@ export function PostGrid({ posts }: { posts: Post[] }) {
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
+          </div>
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+            <p className="font-mono text-sm text-white">{post.title}</p>
           </div>
         </Link>
       ))}
