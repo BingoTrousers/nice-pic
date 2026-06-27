@@ -80,8 +80,11 @@ export function getTagCounts(): Record<string, number> {
   return counts;
 }
 
-export function filterByTags(selected: string[]): Post[] {
+export function filterByTags(selected: string[], mode: "all" | "any" = "all"): Post[] {
   if (selected.length === 0) return posts;
+  if (mode === "any") {
+    return posts.filter((p) => selected.some((t) => p.tags.includes(t)));
+  }
   return posts.filter((p) => selected.every((t) => p.tags.includes(t)));
 }
 
