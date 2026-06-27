@@ -7,6 +7,7 @@ export function SiteHeader() {
         <Link to="/" className="font-mono text-lg font-bold tracking-tight">
           nice pic
         </Link>
+        <div className="h-6 w-px bg-border" aria-hidden="true" />
         <nav className="flex items-center gap-1 text-sm">
           <Link
             to="/"
@@ -16,6 +17,7 @@ export function SiteHeader() {
           >
             Home
           </Link>
+          <div className="mx-1 h-6 w-px bg-border" aria-hidden="true" />
           <Link
             to="/tags"
             activeProps={{ className: "bg-accent text-accent-foreground" }}
