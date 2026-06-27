@@ -15,14 +15,6 @@ export function TagSidebar({ selected, mode, onToggle, onClear, onModeChange }: 
 
   return (
     <aside className="w-full shrink-0 md:w-56">
-      {selected.length > 0 && (
-        <button
-          onClick={onClear}
-          className="mb-3 rounded bg-black px-3 py-1.5 text-xs font-mono text-white hover:bg-black/80"
-        >
-          clear tags
-        </button>
-      )}
       <div className="mb-3">
         <h2 className="font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Tags
@@ -63,6 +55,16 @@ export function TagSidebar({ selected, mode, onToggle, onClear, onModeChange }: 
           );
         })}
       </ul>
+      <div className="mt-3 min-h-8">
+        {selected.length > 0 && (
+          <button
+            onClick={onClear}
+            className="rounded bg-black px-3 py-1.5 text-xs font-mono text-white hover:bg-black/80"
+          >
+            clear tags
+          </button>
+        )}
+      </div>
     </aside>
   );
 }
