@@ -3,11 +3,11 @@ import { Link } from "@tanstack/react-router";
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4">
+      <div className="mx-auto flex h-14 max-w-6xl items-center px-4">
         <Link to="/" className="font-mono text-lg font-bold tracking-tight">
           nice pic
         </Link>
-        <div className="h-6 w-px bg-border" aria-hidden="true" />
+        <div className="ml-6 mr-3 h-6 w-px bg-border" aria-hidden="true" />
         <nav className="flex items-center gap-1 text-sm">
           <Link
             to="/"
