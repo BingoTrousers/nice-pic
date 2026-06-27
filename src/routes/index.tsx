@@ -74,6 +74,15 @@ function Index() {
         />
         <div className="flex-1">
           <div className="mb-4 flex min-h-7 flex-wrap items-center gap-2">
+            {q && (
+              <Badge
+                variant="secondary"
+                className="cursor-pointer font-mono"
+                onClick={clearSearch}
+              >
+                search: "{q}" ×
+              </Badge>
+            )}
             {selected.length > 0 && (
               <>
                 <span className="text-xs text-muted-foreground">
