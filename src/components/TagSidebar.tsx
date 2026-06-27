@@ -22,20 +22,20 @@ export function TagSidebar({ selected, mode, onToggle, onClear, onModeChange }: 
       </div>
       <div className="mb-3 inline-flex rounded-md border p-0.5 text-xs">
         <button
-          onClick={() => onModeChange("all")}
-          className={`rounded px-2 py-1 font-mono transition-colors ${
-            mode === "all" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          match all
-        </button>
-        <button
           onClick={() => onModeChange("any")}
           className={`rounded px-2 py-1 font-mono transition-colors ${
             mode === "any" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"
           }`}
         >
           match any
+        </button>
+        <button
+          onClick={() => onModeChange("all")}
+          className={`rounded px-2 py-1 font-mono transition-colors ${
+            mode === "all" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          match all
         </button>
       </div>
       <ul className="space-y-1.5">
