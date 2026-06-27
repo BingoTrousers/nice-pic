@@ -47,7 +47,7 @@ function PostPage() {
       </div>
       <h1 className="mt-4 text-lg font-semibold">{post.title}</h1>
       <div className="mt-3 flex flex-wrap gap-2">
-        {post.tags.map((tag) => (
+        {post.tags.map((tag: string) => (
           <Link
             key={tag}
             to="/"

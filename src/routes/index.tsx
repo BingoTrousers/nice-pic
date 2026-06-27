@@ -40,8 +40,8 @@ function Index() {
       <div className="flex flex-col gap-6 md:flex-row">
         <TagSidebar
           selected={selected}
-          onToggle={(t) =>
-            update(selected.includes(t) ? selected.filter((x) => x !== t) : [...selected, t])
+          onToggle={(t: string) =>
+            update(selected.includes(t) ? selected.filter((x: string) => x !== t) : [...selected, t])
           }
           onClear={() => update([])}
         />
@@ -49,12 +49,12 @@ function Index() {
           {selected.length > 0 && (
             <div className="mb-4 flex flex-wrap items-center gap-2">
               <span className="text-xs text-muted-foreground">filtering by:</span>
-              {selected.map((t) => (
+              {selected.map((t: string) => (
                 <Badge
                   key={t}
                   variant="secondary"
                   className="cursor-pointer font-mono"
-                  onClick={() => update(selected.filter((x) => x !== t))}
+                  onClick={() => update(selected.filter((x: string) => x !== t))}
                 >
                   {t} ×
                 </Badge>
