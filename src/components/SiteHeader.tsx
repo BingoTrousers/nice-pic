@@ -1,6 +1,6 @@
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Search } from "lucide-react";
+import { Moon, Search, Sun } from "lucide-react";
 
 export function SiteHeader() {
   const navigate = useNavigate();
