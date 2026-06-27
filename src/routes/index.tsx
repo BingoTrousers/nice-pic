@@ -47,13 +47,13 @@ function Index() {
   const pagePosts = filtered.slice(start, start + PAGE_SIZE);
 
   const update = (next: string[]) => {
-    navigate({ search: (prev) => ({ ...prev, tags: next.join(","), page: 1 }) });
+    navigate({ search: { tags: next.join(","), mode, page: 1 } });
   };
   const setMode = (m: "all" | "any") => {
-    navigate({ search: (prev) => ({ ...prev, mode: m, page: 1 }) });
+    navigate({ search: { tags, mode: m, page: 1 } });
   };
   const setPage = (p: number) => {
-    navigate({ search: (prev) => ({ ...prev, page: p }) });
+    navigate({ search: { tags, mode, page: p } });
   };
 
   return (
