@@ -3,11 +3,13 @@ import { getAllTags, getTagCounts } from "@/data/posts";
 
 type Props = {
   selected: string[];
+  mode: "all" | "any";
   onToggle: (tag: string) => void;
   onClear: () => void;
+  onModeChange: (mode: "all" | "any") => void;
 };
 
-export function TagSidebar({ selected, onToggle, onClear }: Props) {
+export function TagSidebar({ selected, mode, onToggle, onClear, onModeChange }: Props) {
   const tags = getAllTags();
   const counts = getTagCounts();
 
@@ -25,6 +27,24 @@ export function TagSidebar({ selected, onToggle, onClear }: Props) {
             clear
           </button>
         )}
+      </div>
+      <div className="mb-3 inline-flex rounded-md border p-0.5 text-xs">
+        <button
+          onClick={() => onModeChange("all")}
+          className={`rounded px-2 py-1 font-mono transition-colors ${
+            mode === "all" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          match all
+        </button>
+        <button
+          onClick={() => onModeChange("any")}
+          className={`rounded px-2 py-1 font-mono transition-colors ${
+            mode === "any" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          match any
+        </button>
       </div>
       <ul className="space-y-1.5">
         {tags.map((tag) => {
