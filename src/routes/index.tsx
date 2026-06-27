@@ -3,7 +3,7 @@ import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { TagSidebar } from "@/components/TagSidebar";
 import { PostGrid } from "@/components/PostGrid";
-import { filterByTags } from "@/data/posts";
+import { filterByTags, searchPosts } from "@/data/posts";
 import { Badge } from "@/components/ui/badge";
 import {
   Pagination,
@@ -20,6 +20,7 @@ const searchSchema = z.object({
   tags: fallback(z.string(), "").default(""),
   mode: fallback(z.enum(["all", "any"]), "all").default("all"),
   page: fallback(z.number().int().min(1), 1).default(1),
+  q: fallback(z.string(), "").default(""),
 });
 
 export const Route = createFileRoute("/")({
@@ -36,10 +37,10 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { tags, mode, page } = Route.useSearch();
+  const { tags, mode, page, q } = Route.useSearch();
   const navigate = useNavigate({ from: "/" });
   const selected = tags ? tags.split(",").filter(Boolean) : [];
-  const filtered = filterByTags(selected, mode);
+  const filtered = searchPosts(filterByTags(selected, mode), q);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -47,13 +48,16 @@ function Index() {
   const pagePosts = filtered.slice(start, start + PAGE_SIZE);
 
   const update = (next: string[]) => {
-    navigate({ search: { tags: next.join(","), mode, page: 1 } });
+    navigate({ search: { tags: next.join(","), mode, page: 1, q } });
   };
   const setMode = (m: "all" | "any") => {
-    navigate({ search: { tags, mode: m, page: 1 } });
+    navigate({ search: { tags, mode: m, page: 1, q } });
   };
   const setPage = (p: number) => {
-    navigate({ search: { tags, mode, page: p } });
+    navigate({ search: { tags, mode, page: p, q } });
+  };
+  const clearSearch = () => {
+    navigate({ search: { tags, mode, page: 1, q: "" } });
   };
 
   return (
