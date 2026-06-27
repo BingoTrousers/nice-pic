@@ -15,18 +15,18 @@ export function TagSidebar({ selected, mode, onToggle, onClear, onModeChange }: 
 
   return (
     <aside className="w-full shrink-0 md:w-56">
-      <div className="mb-3 flex items-center justify-between">
+      {selected.length > 0 && (
+        <button
+          onClick={onClear}
+          className="mb-3 rounded bg-black px-3 py-1.5 text-xs font-mono text-white hover:bg-black/80"
+        >
+          clear tags
+        </button>
+      )}
+      <div className="mb-3">
         <h2 className="font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Tags
         </h2>
-        {selected.length > 0 && (
-          <button
-            onClick={onClear}
-            className="text-xs text-muted-foreground hover:text-foreground"
-          >
-            clear
-          </button>
-        )}
       </div>
       <div className="mb-3 inline-flex rounded-md border p-0.5 text-xs">
         <button
