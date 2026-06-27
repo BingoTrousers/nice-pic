@@ -17,11 +17,21 @@ import {
 const PAGE_SIZE = 4;
 
 const searchSchema = z.object({
-  tags: fallback(z.string(), "").default(""),
-  mode: fallback(z.enum(["all", "any"]), "all").default("all"),
-  page: fallback(z.number().int().min(1), 1).default(1),
-  q: fallback(z.string(), "").default(""),
+  tags: fallback(z.string(), "").optional(),
+  mode: fallback(z.enum(["all", "any"]), "any").optional(),
+  page: fallback(z.number().int().min(1), 1).optional(),
+  q: fallback(z.string(), "").optional(),
 });
+
+// Returns undefined for values that match their defaults so they're omitted from the URL.
+function toSearch(tags: string, mode: "all" | "any", page: number, q: string) {
+  return {
+    tags: tags || undefined,
+    mode: mode !== "any" ? mode : undefined,
+    page: page !== 1 ? page : undefined,
+    q: q || undefined,
+  };
+}
 
 export const Route = createFileRoute("/")({
   validateSearch: zodValidator(searchSchema),
@@ -37,7 +47,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { tags, mode, page, q } = Route.useSearch();
+  const { tags = "", mode = "any", page = 1, q = "" } = Route.useSearch();
   const navigate = useNavigate({ from: "/" });
   const selected = tags ? tags.split(",").filter(Boolean) : [];
   const filtered = searchPosts(filterByTags(selected, mode), q);
@@ -48,16 +58,16 @@ function Index() {
   const pagePosts = filtered.slice(start, start + PAGE_SIZE);
 
   const update = (next: string[]) => {
-    navigate({ search: { tags: next.join(","), mode, page: 1, q } });
+    navigate({ search: toSearch(next.join(","), mode, 1, q) });
   };
   const setMode = (m: "all" | "any") => {
-    navigate({ search: { tags, mode: m, page: 1, q } });
+    navigate({ search: toSearch(tags, m, 1, q) });
   };
   const setPage = (p: number) => {
-    navigate({ search: { tags, mode, page: p, q } });
+    navigate({ search: toSearch(tags, mode, p, q) });
   };
   const clearSearch = () => {
-    navigate({ search: { tags, mode, page: 1, q: "" } });
+    navigate({ search: toSearch(tags, mode, 1, "") });
   };
 
   return (

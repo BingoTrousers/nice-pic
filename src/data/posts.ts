@@ -78,12 +78,6 @@ export const posts: Post[] = [
     src: "https://images.unsplash.com/photo-1511497584788-876760111969?w=1200&q=80",
     tags: ["forest", "nature", "landscape"],
   },
-  {
-    id: "13",
-    title: "Tall pines in the fog",
-    src: "https://images.unsplash.com/photo-1502209524164-d2f3464971c5?w=1200&q=80",
-    tags: ["forest", "nature", "landscape"],
-  },
 ];
 
 export function getAllTags(): string[] {

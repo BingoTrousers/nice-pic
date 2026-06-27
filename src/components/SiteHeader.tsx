@@ -42,7 +42,7 @@ export function SiteHeader() {
         <Link to="/" className="font-mono text-lg font-bold tracking-tight">
           nice pic
         </Link>
-        <div className="ml-6 mr-3 h-6 w-px bg-border" aria-hidden="true" />
+        <div className="ml-6 mr-2 h-6 w-px bg-border" aria-hidden="true" />
         <nav className="flex items-center gap-1 text-sm">
           <Link
             to="/"

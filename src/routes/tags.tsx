@@ -60,7 +60,7 @@ function TagsPage() {
           <li key={tag}>
             <Link
               to="/"
-              search={{ tags: tag, mode: "all", page: 1 }}
+              search={{ tags: tag }}
               className="inline-flex items-center gap-2 rounded-md border bg-card px-3 py-1.5 text-sm hover:bg-accent"
             >
               <span className="font-mono">{tag}</span>

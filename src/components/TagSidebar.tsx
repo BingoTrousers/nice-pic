@@ -59,7 +59,7 @@ export function TagSidebar({ selected, mode, onToggle, onClear, onModeChange }: 
         {selected.length > 0 && (
           <button
             onClick={onClear}
-            className="rounded bg-black px-3 py-1.5 text-xs font-mono text-white hover:bg-black/80"
+            className="rounded bg-foreground px-3 py-1.5 text-xs font-mono text-background hover:bg-foreground/80"
           >
             clear tags
           </button>
