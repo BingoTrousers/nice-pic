@@ -5,18 +5,30 @@ import { TagSidebar } from "@/components/TagSidebar";
 import { PostGrid } from "@/components/PostGrid";
 import { filterByTags } from "@/data/posts";
 import { Badge } from "@/components/ui/badge";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
+const PAGE_SIZE = 4;
 
 const searchSchema = z.object({
   tags: fallback(z.string(), "").default(""),
+  mode: fallback(z.enum(["all", "any"]), "all").default("all"),
+  page: fallback(z.number().int().min(1), 1).default(1),
 });
 
 export const Route = createFileRoute("/")({
   validateSearch: zodValidator(searchSchema),
   head: () => ({
     meta: [
-      { title: "booru — home" },
+      { title: "nice pic — home" },
       { name: "description", content: "A tiny booru-style imageboard." },
-      { property: "og:title", content: "booru — home" },
+      { property: "og:title", content: "nice pic — home" },
       { property: "og:description", content: "A tiny booru-style imageboard." },
     ],
   }),
@@ -24,15 +36,24 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { tags } = Route.useSearch();
+  const { tags, mode, page } = Route.useSearch();
   const navigate = useNavigate({ from: "/" });
   const selected = tags ? tags.split(",").filter(Boolean) : [];
-  const filtered = filterByTags(selected);
+  const filtered = filterByTags(selected, mode);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const pagePosts = filtered.slice(start, start + PAGE_SIZE);
 
   const update = (next: string[]) => {
-    navigate({
-      search: { tags: next.join(",") },
-    });
+    navigate({ search: (prev) => ({ ...prev, tags: next.join(","), page: 1 }) });
+  };
+  const setMode = (m: "all" | "any") => {
+    navigate({ search: (prev) => ({ ...prev, mode: m, page: 1 }) });
+  };
+  const setPage = (p: number) => {
+    navigate({ search: (prev) => ({ ...prev, page: p }) });
   };
 
   return (
@@ -40,15 +61,19 @@ function Index() {
       <div className="flex flex-col gap-6 md:flex-row">
         <TagSidebar
           selected={selected}
+          mode={mode}
           onToggle={(t: string) =>
             update(selected.includes(t) ? selected.filter((x: string) => x !== t) : [...selected, t])
           }
           onClear={() => update([])}
+          onModeChange={setMode}
         />
         <div className="flex-1">
           {selected.length > 0 && (
             <div className="mb-4 flex flex-wrap items-center gap-2">
-              <span className="text-xs text-muted-foreground">filtering by:</span>
+              <span className="text-xs text-muted-foreground">
+                filtering ({mode === "all" ? "match all" : "match any"}):
+              </span>
               {selected.map((t: string) => (
                 <Badge
                   key={t}
@@ -61,7 +86,49 @@ function Index() {
               ))}
             </div>
           )}
-          <PostGrid posts={filtered} />
+          <PostGrid posts={pagePosts} />
+          {totalPages > 1 && (
+            <Pagination className="mt-6">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (currentPage > 1) setPage(currentPage - 1);
+                    }}
+                    aria-disabled={currentPage === 1}
+                    className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                  />
+                </PaginationItem>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                  <PaginationItem key={p}>
+                    <PaginationLink
+                      href="#"
+                      isActive={p === currentPage}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setPage(p);
+                      }}
+                    >
+                      {p}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem>
+                  <PaginationNext
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (currentPage < totalPages) setPage(currentPage + 1);
+                    }}
+                    aria-disabled={currentPage === totalPages}
+                    className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
         </div>
       </div>
     </div>
