@@ -61,7 +61,7 @@ export function SiteHeader() {
             Tags
           </Link>
         </nav>
-        <form onSubmit={onSubmit} className="ml-auto flex items-center">
+        <form onSubmit={onSubmit} className="ml-auto flex items-center gap-2">
           <div className="relative">
             <Search className="pointer-events-none absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
@@ -72,6 +72,14 @@ export function SiteHeader() {
               className="h-8 w-48 rounded-md border bg-background pl-8 pr-2 font-mono text-sm outline-none focus:ring-2 focus:ring-ring sm:w-64"
             />
           </div>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label="Toggle dark mode"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md border hover:bg-accent hover:text-accent-foreground"
+          >
+            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
         </form>
       </div>
     </header>
