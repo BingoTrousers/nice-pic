@@ -69,23 +69,25 @@ function Index() {
           onModeChange={setMode}
         />
         <div className="flex-1">
-          {selected.length > 0 && (
-            <div className="mb-4 flex flex-wrap items-center gap-2">
-              <span className="text-xs text-muted-foreground">
-                filtering ({mode === "all" ? "match all" : "match any"}):
-              </span>
-              {selected.map((t: string) => (
-                <Badge
-                  key={t}
-                  variant="secondary"
-                  className="cursor-pointer font-mono"
-                  onClick={() => update(selected.filter((x: string) => x !== t))}
-                >
-                  {t} ×
-                </Badge>
-              ))}
-            </div>
-          )}
+          <div className="mb-4 flex min-h-7 flex-wrap items-center gap-2">
+            {selected.length > 0 && (
+              <>
+                <span className="text-xs text-muted-foreground">
+                  filtering ({mode === "all" ? "match all" : "match any"}):
+                </span>
+                {selected.map((t: string) => (
+                  <Badge
+                    key={t}
+                    variant="secondary"
+                    className="cursor-pointer font-mono"
+                    onClick={() => update(selected.filter((x: string) => x !== t))}
+                  >
+                    {t} ×
+                  </Badge>
+                ))}
+              </>
+            )}
+          </div>
           <PostGrid posts={pagePosts} />
           {totalPages > 1 && (
             <Pagination className="mt-6">
