@@ -11,6 +11,22 @@ export function SiteHeader() {
     setQ(search.q ?? "");
   }, [search.q]);
 
+  const [isDark, setIsDark] = useState(false);
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const prefersDark =
+      stored === "dark" ||
+      (stored === null && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.classList.toggle("dark", prefersDark);
+    setIsDark(prefersDark);
+  }, []);
+  const toggleTheme = () => {
+    const next = !isDark;
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+    setIsDark(next);
+  };
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const value = q.trim();
