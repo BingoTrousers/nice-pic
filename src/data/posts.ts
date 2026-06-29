@@ -99,13 +99,13 @@ export const posts: Post[] = [
   {
     id: "16",
     title: "Milky Way over the mountains",
-    src: "https://images.unsplash.com/photo-1444921465592-c5e689b9542d?w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1464802686167-b939a6910659?w=1200&q=80",
     tags: ["astronomy", "stars", "night", "landscape", "nature"],
   },
   {
     id: "17",
     title: "Cat in window light",
-    src: "https://images.unsplash.com/photo-1518791841217-8f162f1912da?w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=1200&q=80",
     tags: ["animal", "cat", "portrait"],
   },
   {
@@ -177,7 +177,7 @@ export const posts: Post[] = [
   {
     id: "29",
     title: "Waterfall in jungle",
-    src: "https://images.unsplash.com/photo-1432405972569-9ef75c38f128?w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1498429089284-41f8cf3ffd39?w=1200&q=80",
     tags: ["waterfall", "water", "nature", "forest"],
   },
   {

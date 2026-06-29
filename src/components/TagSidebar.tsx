@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { getAllTags, getTagCounts } from "@/data/posts";
 
-const INITIAL_VISIBLE = 8;
+const INITIAL_VISIBLE = 14;
 
 type Props = {
   selected: string[];

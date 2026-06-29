@@ -14,7 +14,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const PAGE_SIZE = 4;
+const PAGE_SIZE = 16;
 
 const searchSchema = z.object({
   tags: fallback(z.string(), "").optional(),
