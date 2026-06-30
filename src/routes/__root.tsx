@@ -80,6 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "nice pic" },
       { name: "description", content: "A booru-style photo imageboard" },
+      { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "nice pic" },
       { property: "og:description", content: "A booru-style photo imageboard" },
       { property: "og:type", content: "website" },
