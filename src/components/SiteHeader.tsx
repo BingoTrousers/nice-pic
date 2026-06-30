@@ -38,30 +38,55 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-6xl items-center px-4">
-        <Link to="/" className="font-mono text-lg font-bold tracking-tight">
-          nice pic
-        </Link>
-        <div className="ml-6 mr-2 h-6 w-px bg-border" aria-hidden="true" />
-        <nav className="flex items-center gap-1 text-sm">
-          <Link
-            to="/"
-            activeOptions={{ exact: true }}
-            activeProps={{ className: "bg-accent text-accent-foreground" }}
-            className="rounded-md px-3 py-1.5 hover:bg-accent hover:text-accent-foreground"
-          >
-            Home
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="flex h-14 items-center">
+          <Link to="/" className="font-mono text-lg font-bold tracking-tight">
+            nice pic
           </Link>
-          <div className="mx-1 h-6 w-px bg-border" aria-hidden="true" />
-          <Link
-            to="/tags"
-            activeProps={{ className: "bg-accent text-accent-foreground" }}
-            className="rounded-md px-3 py-1.5 hover:bg-accent hover:text-accent-foreground"
-          >
-            Tags
-          </Link>
-        </nav>
-        <form onSubmit={onSubmit} className="ml-auto flex items-center gap-2">
+          <div className="ml-6 mr-2 h-6 w-px bg-border" aria-hidden="true" />
+          <nav className="flex items-center gap-1 text-sm">
+            <Link
+              to="/"
+              activeOptions={{ exact: true }}
+              activeProps={{ className: "bg-accent text-accent-foreground" }}
+              className="rounded-md px-3 py-1.5 hover:bg-accent hover:text-accent-foreground"
+            >
+              Home
+            </Link>
+            <div className="mx-1 h-6 w-px bg-border" aria-hidden="true" />
+            <Link
+              to="/tags"
+              activeProps={{ className: "bg-accent text-accent-foreground" }}
+              className="rounded-md px-3 py-1.5 hover:bg-accent hover:text-accent-foreground"
+            >
+              Tags
+            </Link>
+          </nav>
+          <div className="ml-auto flex items-center gap-2">
+            <form onSubmit={onSubmit} className="hidden sm:flex items-center gap-2">
+              <div className="relative">
+                <Search className="pointer-events-none absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <input
+                  type="search"
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                  placeholder="search posts or tags"
+                  className="h-8 w-48 rounded-md border bg-background pl-8 pr-2 font-mono text-sm outline-none focus:ring-2 focus:ring-ring md:w-64"
+                />
+              </div>
+            </form>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label="Toggle dark mode"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md border hover:bg-accent hover:text-accent-foreground"
+            >
+              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+          </div>
+        </div>
+        {/* Mobile search row — hidden on sm+ where it moves into the header */}
+        <form onSubmit={onSubmit} className="pb-3 sm:hidden">
           <div className="relative">
             <Search className="pointer-events-none absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
@@ -69,17 +94,9 @@ export function SiteHeader() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="search posts or tags"
-              className="h-8 w-48 rounded-md border bg-background pl-8 pr-2 font-mono text-sm outline-none focus:ring-2 focus:ring-ring sm:w-64"
+              className="h-9 w-full rounded-md border bg-background pl-8 pr-2 font-mono text-sm outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label="Toggle dark mode"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md border hover:bg-accent hover:text-accent-foreground"
-          >
-            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </button>
         </form>
       </div>
     </header>

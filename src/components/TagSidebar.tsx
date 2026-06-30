@@ -32,7 +32,7 @@ export function TagSidebar({ selected, mode, onToggle, onClear, onModeChange }: 
         const checked = selected.includes(tag);
         return (
           <li key={tag}>
-            <label className="flex cursor-pointer items-center gap-2 rounded px-1.5 py-1 text-sm hover:bg-accent">
+            <label className="flex cursor-pointer items-center gap-2 rounded px-1.5 py-2.5 text-sm hover:bg-accent">
               <Checkbox checked={checked} onCheckedChange={() => onToggle(tag)} />
               <span className="flex-1 font-mono">{tag}</span>
               <span className="text-xs text-muted-foreground">{counts[tag]}</span>
