@@ -72,11 +72,9 @@ export function TagSidebar({ selected, mode, onToggle, onClear, onModeChange }: 
           onClick={() => setMobileOpen((o) => !o)}
           aria-expanded={mobileOpen}
         >
-          {selected.length > 0 && (
-            <span className="rounded bg-foreground px-1.5 py-0.5 text-background">
-              {selected.length}
-            </span>
-          )}
+          <span className={`rounded bg-foreground px-1.5 py-0.5 text-background ${selected.length > 0 ? "" : "invisible"}`}>
+            {selected.length}
+          </span>
           {mobileOpen ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
         </button>
       </div>
